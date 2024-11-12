@@ -1,8 +1,6 @@
 package com.green.board;
 
-import com.green.board.model.BoardInsReq;
-import com.green.board.model.BoardSelOneRes;
-import com.green.board.model.BoardSelRes;
+import com.green.board.model.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -120,6 +118,8 @@ public class BoardController {
         return service.insBoard(p);
     }
 
+    //객체  > JSON 바꾸는 직렬화 작업 자동으로 해준다.
+    //localhost:8080/board
     @GetMapping
     public List<BoardSelRes> selBoardList() {
         return service.selBoardList();
@@ -128,5 +128,20 @@ public class BoardController {
     @GetMapping("{boardId}")
     public BoardSelOneRes selBoard(@PathVariable int boardId) {
         return service.selBoardOne(boardId);
+    }
+
+    @PutMapping
+    public int updBoard(@RequestBody BoardUpdReq p) {
+        System.out.println(p);
+        return service.updBoard(p);
+    }
+
+    /*
+    @ModelAttribute: FormData or Query String 데이터를 받을 수 있다.
+     */
+    @DeleteMapping
+    public int delBoard(@ModelAttribute BoardDelReq p) {
+        System.out.println(p);
+        return service.delBoard(p);
     }
 }
